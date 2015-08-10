@@ -3,5 +3,3 @@
 # todo-grad-project
 
 See it deployed: https://todo-grad-project.herokuapp.com/
-
-# test
