@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>TODO List</title>
+        <script src="fetch/fetch.js"></script>
         <link href="main.css" rel="stylesheet" type="text/css">
         <link rel="icon" type="image/ico" href="favicon.ico">
     </head>
@@ -20,7 +21,7 @@
                 <input id="submit-todo" type="submit" value="Create" class="button-custom">
             </form>
 
-            <button onclick="deleteCompleted()" class="button-custom">Delete completed</button>
+            <button onclick="deleteCompleted()" class="button-custom" id="delete-complete">Delete completed</button>
             <button onclick="filterTodo()" class="button-custom" id="filter-none">No filter</button>
             <button onclick="filterTodo()" class="button-custom" id="filter-complete">Complete</button>
             <button onclick="filterTodo()" class="button-custom" id="filter-active">Active</button>

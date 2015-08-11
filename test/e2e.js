@@ -28,6 +28,7 @@ testing.describe("end to end", function() {
             helpers.setupErrorRoute("get", "/api/todo");
             helpers.navigateToSite();
             helpers.getErrorText().then(function(text) {
+                console.log(text);
                 assert.equal(text, "Failed to get list. Server returned 500 - Internal Server Error");
             });
         });
