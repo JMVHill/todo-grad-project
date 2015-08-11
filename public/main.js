@@ -31,6 +31,18 @@ function createTodo(title, callback) {
     };
 }
 
+function filterTodo() {
+    var sender = event.target;
+    var filterFunction = function(todo) { return true; };
+    if (sender.id == "filter-complete") {
+        filterFunction = function(todo) { return todo.isComplete; }
+    }
+    if (sender.id == "filter-active") {
+        filterFunction = function(todo) { return todo.isComplete === false; }
+    }
+    reloadTodoList(filterFunction);
+}
+
 function deleteTodo() {
     var self = this;
     var deleteRequest = new XMLHttpRequest();
@@ -95,13 +107,17 @@ function getTodoList(callback) {
     createRequest.send();
 }
 
-function reloadTodoList() {
+function reloadTodoList(filterFunction) {
     while (todoList.firstChild) {
         todoList.removeChild(todoList.firstChild);
     }
     todoListPlaceholder.style.display = "block";
+    if (typeof filterFunction == "undefined") {
+        filterFunction = function(todo) { return true; }
+    }
     getTodoList(function(todos) {
         todoListPlaceholder.style.display = "none";
+        todos = todos.filter(filterFunction);
         var uncompleteItems = 0;
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
@@ -110,10 +126,12 @@ function reloadTodoList() {
             deleteButton.id = "todo-delete";
             deleteButton.value = todo.id;
             deleteButton.textContent = "X";
+            deleteButton.className = deleteButton.className + "button-custom";
             deleteButton.onclick = deleteTodo;
             completeButton.id = "todo-complete";
             completeButton.value = todo.id;
             completeButton.textContent = "Complete";
+            completeButton.className = completeButton.className + "button-custom";
             completeButton.onclick = compelteTodo;
             listItem.textContent = todo.title + "   ";
             listItem.id = "todo-list-item";

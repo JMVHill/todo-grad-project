@@ -17,10 +17,13 @@
 
             <form id="todo-form">
                 <input id="new-todo" placeholder="What needs to be done?" autofocus>
-                <input id="submit-todo" type="submit" value="Create">
+                <input id="submit-todo" type="submit" value="Create" class="button-custom">
             </form>
 
-            <button onclick="deleteCompleted()">Delete completed</button>
+            <button onclick="deleteCompleted()" class="button-custom">Delete completed</button>
+            <button onclick="filterTodo()" class="button-custom" id="filter-none">No filter</button>
+            <button onclick="filterTodo()" class="button-custom" id="filter-complete">Complete</button>
+            <button onclick="filterTodo()" class="button-custom" id="filter-active">Active</button>
 
             <div id="error"></div>
 

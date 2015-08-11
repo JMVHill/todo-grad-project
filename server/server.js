@@ -48,10 +48,10 @@ module.exports = function(port, middleware, callback) {
     app.delete("/api/todo/", function(reg, res) {
         try {
             todos = todos.filter(function(todo) {
-                return todo.isComplete == false;
+                return todo.isComplete === false;
             });
             res.sendStatus(200);
-        } catch(err) {
+        } catch (err) {
             res.sendStatus(404);
         }
     });
