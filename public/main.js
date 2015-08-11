@@ -18,7 +18,8 @@ function createTodo(title, callback) {
     createRequest.open("POST", "/api/todo");
     createRequest.setRequestHeader("Content-type", "application/json");
     createRequest.send(JSON.stringify({
-        title: title
+        title: title,
+        isComplete: false
     }));
     createRequest.onload = function() {
         if (this.status === 201) {
@@ -40,7 +41,26 @@ function deleteTodo() {
             self.parentNode.remove(self);
             reloadTodoList();
         } else {
-            error.textContent = "Failed to create item. Server returned " + this.status + " - " + this.responseText;
+            error.textContent = "Failed to delete item. Server returned " + this.status + " - " + this.responseText;
+        }
+    };
+}
+
+function compelteTodo() {
+    var self = this;
+    var putRequest = new XMLHttpRequest();
+    putRequest.open("PUT", "/api/todo/");
+    putRequest.setRequestHeader("Content-type", "application/json");
+    putRequest.send(JSON.stringify({
+        id: self.value,
+        isComplete: true
+    }));
+    putRequest.onload = function() {
+        if (this.status === 200) {
+            reloadTodoList();
+        } else {
+            error.textContent = "Failed to mark item as complete. Server returned " +
+                this.status + " - " + this.responseText;
         }
     };
 }
@@ -68,12 +88,23 @@ function reloadTodoList() {
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
             var deleteButton = document.createElement("button");
-            deleteButton.textContent = "X";
+            var completeButton = document.createElement("button");
+            deleteButton.id = "todo-delete";
             deleteButton.value = todo.id;
+            deleteButton.textContent = "X";
             deleteButton.onclick = deleteTodo;
-            deleteButton.setAttribute("id", "todo-delete");
+            completeButton.id = "todo-complete";
+            completeButton.value = todo.id;
+            completeButton.textContent = "Complete";
+            completeButton.onclick = compelteTodo;
             listItem.textContent = todo.title + "   ";
             listItem.id = "todo-list-item";
+            listItem.isComplete = todo.isComplete;
+            if (listItem.isComplete) {
+                listItem.style.fontWeight = "bold";
+            } else {
+                listItem.appendChild(completeButton);
+            }
             listItem.appendChild(deleteButton);
             todoList.appendChild(listItem);
         });

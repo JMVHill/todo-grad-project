@@ -82,14 +82,24 @@ testing.describe("end to end", function() {
                 assert.equal(elements.length, 0);
             });
         });
-        testing.it("displays an error when deleting from an empty list", function() {
-            helpers.navigateToSite();
-            helpers.addTodo("New todo item");
-            helpers.setupErrorRoute("delete", "/api/todo");
-            helpers.deleteTodo();
-            helpers.getErrorText().then(function(text) {
-                assert.equal(text, "Failed to create item. Server returned 500 - Internal Server Error");
-            });
-        });
     });
+    //testing.describe("on update todo item", function() {
+    //    testing.it("deleting from a populated Todo list", function() {
+    //        helpers.navigateToSite();
+    //        helpers.addTodo("New todo item");
+    //        helpers.addTodo("New todo item 2");
+    //        helpers.deleteTodo();
+    //        helpers.getTodoList().then(function(elements) {
+    //            assert.equal(elements.length, 1);
+    //        });
+    //    });
+    //    testing.it("deleting from a populated Todo list, making an empty one", function() {
+    //        helpers.navigateToSite();
+    //        helpers.addTodo("New todo item");
+    //        helpers.deleteTodo();
+    //        helpers.getTodoList().then(function(elements) {
+    //            assert.equal(elements.length, 0);
+    //        });
+    //    });
+    //});
 });

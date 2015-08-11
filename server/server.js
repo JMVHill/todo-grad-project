@@ -18,6 +18,7 @@ module.exports = function(port, middleware, callback) {
     app.post("/api/todo", function(req, res) {
         var todo = req.body;
         todo.id = latestId.toString();
+        todo.isComplete = false;
         latestId++;
         todos.push(todo);
         res.set("Location", "/api/todo/" + todo.id);
@@ -37,6 +38,23 @@ module.exports = function(port, middleware, callback) {
             todos = todos.filter(function(otherTodo) {
                 return otherTodo !== todo;
             });
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+
+    // Update
+    app.put("/api/todo/", function(reg, res) {
+        var todo = reg.body;
+        var existingTodo = getTodo(todo.id);
+        if ((existingTodo) && (todo.id === existingTodo.id)) {
+            if (typeof todo.title !== "undefined") {
+                existingTodo.title = todo.title;
+            }
+            if (typeof todo.isComplete !== "undefined") {
+                existingTodo.isComplete = todo.isComplete;
+            }
             res.sendStatus(200);
         } else {
             res.sendStatus(404);
