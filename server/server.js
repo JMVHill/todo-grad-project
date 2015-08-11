@@ -44,6 +44,18 @@ module.exports = function(port, middleware, callback) {
         }
     });
 
+    // Delete
+    app.delete("/api/todo/", function(reg, res) {
+        try {
+            todos = todos.filter(function(todo) {
+                return todo.isComplete == false;
+            });
+            res.sendStatus(200);
+        } catch(err) {
+            res.sendStatus(404);
+        }
+    });
+
     // Update
     app.put("/api/todo/", function(reg, res) {
         var todo = reg.body;

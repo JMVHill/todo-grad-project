@@ -47,6 +47,22 @@ function deleteTodo() {
     };
 }
 
+function deleteCompleted() {
+    var self = this;
+    var deleteCompRequest = new XMLHttpRequest();
+    deleteCompRequest.open("DELETE", "/api/todo/");
+    deleteCompRequest.setRequestHeader("Content-type", "application/json");
+    deleteCompRequest.send();
+    deleteCompRequest.onload = function() {
+        if (this.status === 200) {
+            reloadTodoList();
+        } else {
+            error.textContent = "Failed to delete completed items. Server returned " +
+                this.status + " - " + this.responseText;
+        }
+    };
+}
+
 function compelteTodo() {
     var self = this;
     var putRequest = new XMLHttpRequest();
