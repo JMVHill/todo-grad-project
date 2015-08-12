@@ -108,8 +108,7 @@ function getTodoList(callback) {
             }
         }).then(function (json) {
             callback(json);
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
             error.textContent = "Failed to get list.";
             console.log(error);
         });

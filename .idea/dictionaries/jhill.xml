@@ -1,3 +1,9 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="jhill" />
+  <dictionary name="jhill">
+    <words>
+      <w>contrib</w>
+      <w>jscs</w>
+      <w>nodemon</w>
+    </words>
+  </dictionary>
 </component>
