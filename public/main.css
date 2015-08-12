@@ -1,5 +1,5 @@
 body {
-    background: #E8F5E9;
+    background: #F5F5F5;
     color: rgba(0, 0, 0, 0.87);
     font-family: sans-serif;
     margin: 0;
@@ -25,9 +25,10 @@ h1 {
 }
 
 .button-custom {
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     background: #938f91;
-    -moz-box-shadow:    1px 1px 2px 3px #eee;
-    -webkit-box-shadow: 1px 1px 2px 3px #eee;
-    box-shadow:         1px 1px 2px 3px #eee;
+    /*-moz-box-shadow:    1px 1px 2px 3px #eee;*/
+    /*-webkit-box-shadow: 1px 1px 2px 3px #eee;*/
+    /*box-shadow:         1px 1px 2px 3px #eee;*/
 }
+
