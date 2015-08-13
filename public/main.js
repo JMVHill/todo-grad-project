@@ -110,7 +110,7 @@ function getTodoList(callback) {
             callback(json);
         }).catch(function(error) {
             error.textContent = "Failed to get list.";
-            console.log(error);
+            console.log("ERROR: "+ error);
         });
 }
 
@@ -163,4 +163,4 @@ function reloadTodoList(filterFunction) {
 }
 
 reloadTodoList();
-setInterval(reloadTodoList, 10000);
+//setInterval(reloadTodoList, 10000);
