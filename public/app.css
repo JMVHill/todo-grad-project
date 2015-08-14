@@ -1,107 +1,59 @@
-@base: #F5F5F5;
-
 body {
-  background: @base;
-  color: rgba(22, 22, 22, 1);
+  background: #f5f5f5;
+  color: #161616;
   margin: auto;
 }
-
 h1 {
   text-align: center;
 }
-
-ol, ul {list-style: none;}
-
+ol,
+ul {
+  list-style: none;
+}
 .menu {
-   list-style: none;
-   border-bottom: 0.1em solid black;
-   margin-bottom: 2em;
-   padding: 0 0 0.5em;
- }
-
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
 .menu:before {
   content: "[";
 }
-
 .menu:after {
   content: "]";
 }
-
 .menu > li {
   display: inline;
 }
-
 .menu > li:before {
   content: "|";
   padding-right: 0.3em;
 }
-
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
 }
-
 .itemComplete {
   font-weight: bold;
 }
-
 .header-banner {
-  background: rgba(66, 66, 66, 1);
+  background: #424242;
   color: whitesmoke;
 }
-
 .main-content {
   margin: auto;
   display: inline-block;
   width: 50%;
   margin-left: 25%;
 }
-
 .edit-todo {
   padding: 5px 11px;
   width: 70%;
   display: inline-block;
 }
-
-.btn-create {
-
-}
-
-.btn-delcomplete {
-
-}
-
-.btn-complete {
-
-}
-
-.btn-filter {
-
-}
-
-.btn-delete {
-
-}
-
-.list-group {
-
-}
-
-.list-group-item{
-
-}
-
 #todo-list {
   padding: 0px;
 }
-
 #count-label {
   text-align: center;
 }
-
-
-
-
-
-
-

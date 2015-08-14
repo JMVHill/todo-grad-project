@@ -1,0 +1,44 @@
+<header class="header-banner">
+    <h1>TODO List</h1>
+</header>
+<section class="main-content">
+
+    <form id="todo-form">
+        <input id="new-todo" ng-model="newTodoTitle" class="form-control edit-todo" type="text"
+               placeholder="What needs to be done?" autofocus>
+        <button id="submit-todo" ng-click="createTodo()" type="submit" class="btn btn-default btn-create">Create
+        </button>
+    </form>
+    <br/> <br/>
+
+    <button ng-click="deleteCompleted()" class="btn btn-default btn-delcomplete" id="delete-complete"
+            ng-show="completeCount>0">Delete completed
+    </button>
+    <button ng-click="filterTodo(0)" class="btn btn-default btn-filter" id="filter-none">No filter</button>
+    <button ng-click="filterTodo(1)" class="btn btn-default btn-filter" id="filter-complete">Complete</button>
+    <button ng-click="filterTodo(2)" class="btn btn-default btn-filter" id="filter-active">Active</button>
+
+    <br/> <br/>
+
+    <h2 id="todo-list-placeholder" ng-show="loadingList">Loading...</h2>
+
+    <ul id="todo-list" class="list-group checked-list-box">
+        <li ng-repeat="todo in todos" class="list-group-item" data-color="success">
+            <span class="state-icon glyphicon"
+                  ng-class="todo.isComplete ? 'glyphicon-check' : 'glyphicon-unchecked'"></span>
+
+            {{todo.title}}
+
+            <button type="button" ng-show="!todo.isComplete" ng-click="completeTodo(todo)" class="btn btn-default">Complete</button>
+            <!--<button type="button" ng-click="deleteTodo(todo)" id="todo-delete" class="btn btn-default">-->
+            <!--<span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>-->
+            <!--</button>-->
+        </li>
+    </ul>
+
+    <div id="count-label" ng-show="incompleteCount>0">{{incompleteCount}} remaining items.</div>
+    <br/>
+
+    <div id="error" ng-show="errorText">{{errorText}}</div>
+
+</section>

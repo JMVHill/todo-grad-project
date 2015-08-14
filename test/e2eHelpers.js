@@ -23,9 +23,21 @@ module.exports.setupDriver = function() {
 module.exports.setupServer = function(done) {
     router = express.Router();
     if (gatheringCoverage) {
-        router.get("/main.js", function(req, res) {
-            var absPath = path.join(__dirname, "..", "public", "main.js");
-            res.send(instrumenter.instrumentSync(fs.readFileSync("public/main.js", "utf8"), absPath));
+        router.get("/app.js", function(req, res) {
+            var absPath = path.join(__dirname, "..", "public", req.path);
+            res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
+        });
+        router.get("/todoTableView", function(req, res) {
+            var absPath = path.join(__dirname, "..", "public", req.path);
+            res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
+        });
+        router.get("/view1", function(req, res) {
+            var absPath = path.join(__dirname, "..", "public", req.path);
+            res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
+        });
+        router.get("/view2", function(req, res) {
+            var absPath = path.join(__dirname, "..", "public", req.path);
+            res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
         });
     }
     server = createServer(testPort, router, done);
@@ -48,6 +60,11 @@ module.exports.reportCoverage = function() {
     if (gatheringCoverage) {
         fs.writeFileSync(coverageFilename, JSON.stringify(collector.getFinalCoverage()), "utf8");
     }
+};
+
+module.exports.waitForLoad = function() {
+    var todoListPlaceholder = driver.findElement(webdriver.By.id("todo-list-placeholder"));
+    driver.wait(webdriver.until.elementIsNotVisible(todoListPlaceholder), 5000);
 };
 
 module.exports.navigateToSite = function() {
@@ -77,12 +94,12 @@ module.exports.getTodoList = function() {
 module.exports.addTodo = function(text) {
     driver.findElement(webdriver.By.id("new-todo")).sendKeys(text);
     driver.findElement(webdriver.By.id("submit-todo")).click();
+    this.waitForLoad();
 };
 
 module.exports.deleteTodo = function() {
     driver.findElement(webdriver.By.id("todo-delete")).click();
-    var todoListPlaceholder = driver.findElement(webdriver.By.id("todo-list-placeholder"));
-    driver.wait(webdriver.until.elementIsNotVisible(todoListPlaceholder), 5000);
+    this.waitForLoad();
 };
 
 module.exports.setupErrorRoute = function(action, route) {
