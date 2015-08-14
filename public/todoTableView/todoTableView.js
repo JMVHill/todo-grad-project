@@ -18,8 +18,31 @@ angular.module("todoApp.todoTableView", ["ngRoute"])
         $scope.loadingList = false;
         $scope.completeCount = 0;
         $scope.incompleteCount = 0;
+        $scope.todoItemCount = 0;
+        $scope.chosenFilterString = "No Filter";
         $scope.filterFunction = function (todo) {
             return true;
+        };
+        $scope.modal = {
+            text: "Are you sure you want to delete this item?",
+            callback: null,
+            data: null
+        };
+
+        $scope.modalClick = function (identifier, data) {
+            if (identifier === "deleteSingle") {
+                $scope.modal.text = "Are you sure you want to delete this item?";
+                $scope.modal.callback = $scope.deleteTodo;
+                $scope.modal.data = data;
+            } else if (identifier === "deleteCompleted") {
+                $scope.modal.text = "Are you sure you want to delete ALL completed items?";
+                $scope.modal.callback = $scope.deleteCompleted;
+                $scope.modal.data = data;
+            }
+        };
+
+        $scope.modalClicked = function () {
+            $scope.modal.callback($scope.modal.data);
         };
 
         // Create new todo
@@ -35,19 +58,16 @@ angular.module("todoApp.todoTableView", ["ngRoute"])
 
         // Filter todo items
         $scope.filterTodo = function (filterIndex) {
-            if (filterIndex == 0) {
+            $scope.chosenFilterString = filterIndex;
+            if (filterIndex == "No Filter") {
                 $scope.filterFunction = function (todo) {
                     return true;
                 };
-            }
-            ;
-            if (filterIndex == 1) {
+            } else if (filterIndex == "Complete") {
                 $scope.filterFunction = function (todo) {
                     return todo.isComplete;
                 };
-            }
-            ;
-            if (filterIndex == 2) {
+            } else if (filterIndex == "Active") {
                 $scope.filterFunction = function (todo) {
                     return !todo.isComplete;
                 };
@@ -88,10 +108,10 @@ angular.module("todoApp.todoTableView", ["ngRoute"])
 
         // Update list function
         $scope.updateList = function () {
-            $scope.loadingList = true;
+            $scope.loadingList = true && ($scope.loadingList.length == 0);
             $http.get("/api/todo/").then(function (response) {
                 var receivedTodos = response.data;
-                $scope.loadingList = false;
+                $scope.todoItemCount = receivedTodos.length;
                 $scope.completeCount = receivedTodos.filter(function (todo) {
                     return todo.isComplete === true;
                 }).length;
@@ -99,6 +119,7 @@ angular.module("todoApp.todoTableView", ["ngRoute"])
                     return todo.isComplete === false;
                 }).length;
                 $scope.todos = receivedTodos.filter($scope.filterFunction);
+                $scope.loadingList = false;
             }, function (response) {
                 $scope.errorText = "Failed to get list. Server returned " +
                     response.status + " - " + response.statusText;

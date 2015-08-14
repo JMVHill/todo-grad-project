@@ -31,14 +31,6 @@ module.exports.setupServer = function(done) {
             var absPath = path.join(__dirname, "..", "public", req.path);
             res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
         });
-        router.get("/view1", function(req, res) {
-            var absPath = path.join(__dirname, "..", "public", req.path);
-            res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
-        });
-        router.get("/view2", function(req, res) {
-            var absPath = path.join(__dirname, "..", "public", req.path);
-            res.send(instrumenter.instrumentSync(fs.readFileSync("public/" + req.path, "utf8"), absPath));
-        });
     }
     server = createServer(testPort, router, done);
 };
@@ -98,8 +90,10 @@ module.exports.addTodo = function(text) {
 };
 
 module.exports.deleteTodo = function() {
-    driver.findElement(webdriver.By.id("todo-delete")).click();
-    this.waitForLoad();
+    driver.findElement(webdriver.By.className("btn-delete")).click();
+    driver.wait(webdriver.until.elementIsVisible(webdriver.By.className("dialog-confirm")), 5000);
+    driver.findElement(webdriver.By.className("dialog-confirm")).click();
+    //this.waitForLoad();
 };
 
 module.exports.setupErrorRoute = function(action, route) {

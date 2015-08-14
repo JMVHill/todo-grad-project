@@ -28,7 +28,6 @@ testing.describe("end to end", function() {
             helpers.setupErrorRoute("get", "/api/todo");
             helpers.navigateToSite();
             helpers.getErrorText().then(function(text) {
-                console.log(text);
                 assert.equal(text, "Failed to get list. Server returned 500 - Internal Server Error");
             });
         });
@@ -69,7 +68,7 @@ testing.describe("end to end", function() {
         testing.it("deleting from a populated Todo list", function() {
             helpers.navigateToSite();
             helpers.addTodo("New todo item");
-            helpers.addTodo("New todo item 2");
+            helpers.addTodo("Another new todo item");
             helpers.deleteTodo();
             helpers.getTodoList().then(function(elements) {
                 assert.equal(elements.length, 1);

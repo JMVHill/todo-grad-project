@@ -43,17 +43,44 @@ ul {
 .main-content {
   margin: auto;
   display: inline-block;
-  width: 50%;
-  margin-left: 25%;
+  width: 70%;
+  margin-left: 15%;
 }
 .edit-todo {
   padding: 5px 11px;
   width: 70%;
   display: inline-block;
 }
+.btn-delcomplete {
+  width: 170px;
+}
+.btn-complete {
+  float: right;
+  margin-top: -7px;
+  margin-right: 5px;
+}
+.btn-filter {
+  width: 170px;
+}
+.btn-delete {
+  float: right;
+  margin-top: -7px;
+}
+.state-icon {
+  cursor: pointer;
+}
 #todo-list {
   padding: 0px;
 }
 #count-label {
   text-align: center;
+}
+.todo-create {
+  text-align: center;
+}
+.todo-management {
+  text-align: center;
+}
+.todo-item-label {
+  cursor: pointer;
 }
